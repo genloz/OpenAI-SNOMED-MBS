@@ -372,8 +372,14 @@ if st.session_state.clicked:
     )
 
     df1 = grid_table1['data']
+    ## combine data tables
     selected_rows1 = grid_table1['selected_rows']
-    selected_df = pd.DataFrame(selected_rows1).apply(pd.to_numeric, errors='coerce')
+    print("Here is the selected rows from SNOMED",selected_rows)
+    print("Here is the selected rows from MBS",selected_rows1)
+    df1 = pd.DataFrame(selected_rows)
+    df2 = pd.DataFrame(selected_rows1)
+    combined = pd.concat([df1, df2], axis=1)
+    selected_df = pd.DataFrame(combined).apply(pd.to_numeric, errors='coerce')
 
     st.session_state.selected = selected_df
 
