@@ -111,14 +111,14 @@ temperature = st.sidebar.slider(
     "Temperature",
     min_value=0.0,
     max_value=1.0,
-    value=0.5,
+    value=0.3,
     step=0.1
 )
 tokens = st.sidebar.slider(
     "Maximum Tokens",
     min_value=64,
     max_value=2048,
-    value=256,
+    value=2048,
     step=64
 )
 
@@ -172,8 +172,7 @@ def shorthand_expander(text, temperature=temperature, tokens=tokens):
 def generate_codes(question, temperature=temperature, tokens=tokens):
 
     system_prompt = """
-    You are an expert Australian medical practitioner and your role is to review the clinial note, SNOMED and MBS codes provided by the user and add any additional and relevant SNOMEDCT-AU codes and MBS codes
-    - Provide multiple codes if they are relevant.
+    Review the clinical note provided, marked up with suggested SNOMED codes and MBS codes, reformat the existing codes and add any additional suggestions or corrections. 
     - Do not provide irrelevant codes. If there are no relevant codes, say "there are no relevant codes".
     Use the following format for your response:
     SNOMED CODE: 
@@ -190,7 +189,8 @@ def generate_codes(question, temperature=temperature, tokens=tokens):
     MBS TERM:
     MBS CODE:
     MBS TERM:
-    Now please review the user's clinical notes:
+    
+    Clinical Note::
     """
 
     messages = []
